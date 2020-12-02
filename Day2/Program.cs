@@ -16,12 +16,12 @@ namespace Day2
             string line;
             while ((line = file.ReadLine()) != null)
             {
-                var min = line.Substring(0, line.IndexOf("-"));
-                var max = line.Substring(line.IndexOf("-") + 1, line.IndexOf(" ") - 2);
+                var first = line.Substring(0, line.IndexOf("-"));
+                var second = line.Substring(line.IndexOf("-") + 1, line.IndexOf(" ") - 2);
                 var character = line.Substring(line.IndexOf(" ") + 1, line.IndexOf(":"));
                 var password = line.Substring(line.IndexOf(":") + 2);
 
-                var policy = new PasswordPolicy(int.Parse(min), int.Parse(max), character[0], password);
+                var policy = new PasswordPolicy(int.Parse(first), int.Parse(second), character[0], password);
                 
                 if (policy.SatisfiesLengthConstraint())
                 {
