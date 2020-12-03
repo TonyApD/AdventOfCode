@@ -28,20 +28,8 @@ namespace Day3
         private static void ExecutePart1(IEnumerable<string> map)
         {
             var slope = new Slope(3, 1);
-            var xPos = 0;
-            for (int i = 0; i < map.Count(); i += slope.StepsDown)
-            {
-                var current = map.ElementAt(i);
-                var currentChar = current.ToCharArray()[xPos % current.Length];
-
-                if (currentChar == '#')
-                {
-                    slope.AddTree();
-                }
-
-                xPos += slope.StepsRight;
-            }
-            Console.WriteLine($"Part 1 - Number of trees: {slope.NumberOfTrees}");
+            var numberOfTrees = TraverseSlope(map, slope);
+            Console.WriteLine($"Part1 - Number of trees: {numberOfTrees}");
         }
 
         private static void ExecutePart2(IEnumerable<string> map)
@@ -58,22 +46,28 @@ namespace Day3
             var product = 1L;
             foreach (var slope in slopes)
             {
-                var xPos = 0;
-                for (int i = 0; i < map.Count(); i += slope.StepsDown)
-                {
-                    var current = map.ElementAt(i);
-                    var currentChar = current.ToCharArray()[xPos % current.Length];
-
-                    if (currentChar == '#')
-                    {
-                        slope.AddTree();
-                    }
-                    xPos += slope.StepsRight;
-                }
-                Console.WriteLine($"Part2 - Number of trees: {slope.NumberOfTrees} {product}");
-                product *= slope.NumberOfTrees;
+                var numberOfTrees = TraverseSlope(map, slope);
+                Console.WriteLine($"Part2 - Number of trees: {numberOfTrees} {product}");
+                product *= numberOfTrees;
             }
             Console.WriteLine($"Part 2 - Number of trees product: {product}");
+        }
+
+        public static int TraverseSlope(IEnumerable<string> map, Slope slope)
+        {
+            var xPos = 0;
+            for (int i = 0; i < map.Count(); i += slope.StepsDown)
+            {
+                var current = map.ElementAt(i);
+                var currentChar = current.ToCharArray()[xPos % current.Length];
+
+                if (currentChar == '#')
+                {
+                    slope.AddTree();
+                }
+                xPos += slope.StepsRight;
+            }
+            return slope.NumberOfTrees;
         }
     }
 }
