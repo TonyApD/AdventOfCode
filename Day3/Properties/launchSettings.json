@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Day3": {
+      "commandName": "Project",
+      "commandLineArgs": "\\repos\\AdventOfCode\\Day3\\input.txt"
+    }
+  }
+}
